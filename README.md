@@ -12,44 +12,6 @@ ProFund Manager+ is a Django-based application designed to manage clients, proje
 
 ## Project Structure
 
-ProFund Manager+/ ├── backend/ │ ├── api/ │ │ ├── migrations/ # Database migrations │ │ ├── autologin/ # Auto-login functionality │ │ ├── init.py # Package initialization │ │ ├── admin.py # Admin panel configuration │ │ ├── apps.py # App configuration │ │ ├── models.py # Database models │ │ ├── serializers.py # API serializers │ │ ├── tests.py # Unit tests │ │ ├── urls.py # API routes │ │ ├── views.py # API views │ ├── backend/ │ │ ├── settings.py # Project settings │ │ ├── urls.py # Project-level routes │ │ ├── wsgi.py # WSGI configuration │ │ ├── asgi.py # ASGI configuration │ ├── manage.py # Django management script ├── env/ # Virtual environment
-
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/profund-manager.git
-   cd profund-manager
-
-2. Set up a virtual environment:
-   python -m venv env
-    source env/Scripts/activate  # On Windows
-    source env/bin/activate      # On macOS/Linux
-
-3. Install dependencies:dkeram: please can you write me a readme.md for my code
-
-Workspace: Collecting workspace information`@workspace` accuracy and speed can be improved by building a remote workspace index. [Learn More](https://aka.ms/vscode-copilot-workspace-remote-index)
-
-Build remote workspace index
-
-Here is a `README.md` file for your project:
-
-```markdown
-# ProFund Manager+
-
-ProFund Manager+ is a Django-based application designed to manage clients, projects, tasks, and credentials efficiently. It provides a RESTful API for interacting with the backend, enabling seamless integration with frontend applications or other services.
-
-## Features
-
-- **User Management**: Register and authenticate users using JWT tokens.
-- **Client Management**: Add, view, and delete client information.
-- **Project Management**: Manage projects associated with clients.
-- **Task Management**: Create and track tasks for projects and clients.
-- **Credential Management**: Store and manage client credentials securely.
-
-## Project Structure
-
 ```
 ProFund Manager+/
 ├── backend/
