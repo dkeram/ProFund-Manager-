@@ -10,10 +10,11 @@ class Clients(models.Model):
     phone = models.CharField(max_length=15)
     address = models.TextField()
     vat_number = models.CharField(max_length=9)
+    gemi_number = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.name
+        return self.title
     
 
 class Credentials(models.Model):
