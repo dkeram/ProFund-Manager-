@@ -6,6 +6,7 @@ urlpatterns = [
     path('clients/', views.ClientsListView.as_view(), name='clients'),
     path('clients/delete/<int:pk>/', views.ClientDeleteView.as_view(), name='client_delete'),
     path('credentials/', views.CredentialsListView.as_view(), name='credentials'),
+    path('credentials/connect/<int:client_id>/', views.ClientAutoLogin.as_view(), name='credentials_connect'),
     path('credentials/<int:client_id>/', views.CredentialsListView.as_view(), name='credentials_client'),
     path('credentials/delete/<int:pk>/', views.CredentialsDeleteView.as_view(), name='credentials_delete'),
     path('projects/', views.ProjectsListView.as_view(), name='projects'),

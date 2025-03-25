@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from models import Clients, Credentials, Projects, Tasks
+from .models import Clients, Credentials, Projects, Tasks
 
 
 class UserSerializer(serializers.ModelSerializer):

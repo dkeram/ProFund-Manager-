@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from .autologin.autologin import AutoLogin_DYPA_AADE, AutoLogin_EFKA, AutoLogin_MY_AADE, AutoLogin_PSKE
 from .serializers import UserSerializer, ClientsSerializer, CredentialsSerializer, ProjectsSerializer, TasksSerializer
 from .models import Clients, Credentials, Projects, Tasks
 
@@ -23,7 +24,29 @@ class ClientDeleteView(generics.DestroyAPIView):
     queryset = Clients.objects.all()
     serializer_class = ClientsSerializer
     permission_classes = [IsAuthenticated]
-      
+    
+class ClientAutoLogin(generics.ListAPIView):
+    serializer_class = CredentialsSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        client_id = self.kwargs['client_id']
+        client = Clients.get(pk=client_id)
+        credentials = Credentials.objects.filter(client=client)
+        username = credentials[0].username
+        password = credentials[0].password
+        public_service = credentials[0].public_service
+        if public_service == 'PSKE':
+            AutoLogin_PSKE(username, password).login()
+        elif public_service == 'EFKA':
+            AutoLogin_EFKA(username, password).login()
+        elif public_service == 'DYPA':
+            AutoLogin_DYPA_AADE(username, password).login()
+        else:
+            AutoLogin_MY_AADE(username, password).login()
+        return credentials
+
+
 # Credentials views
 class CredentialsListView(generics.ListCreateAPIView):
     queryset = Credentials.objects.all()
