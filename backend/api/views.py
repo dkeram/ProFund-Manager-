@@ -15,6 +15,11 @@ class CreateUserView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
 # Clients views
+class CreateClientView(generics.CreateAPIView):
+    queryset = Clients.objects.all()
+    serializer_class = ClientsSerializer
+    permission_classes = [AllowAny]
+
 class ClientsListView(generics.ListCreateAPIView):
     queryset = Clients.objects.all()
     serializer_class = ClientsSerializer
@@ -48,6 +53,11 @@ class ClientAutoLogin(generics.ListAPIView):
 
 
 # Credentials views
+class CreateCredentialsView(generics.CreateAPIView):
+    queryset = Credentials.objects.all()
+    serializer_class = CredentialsSerializer
+    permission_classes = [IsAuthenticated]
+
 class CredentialsListView(generics.ListCreateAPIView):
     queryset = Credentials.objects.all()
     serializer_class = CredentialsSerializer
@@ -68,6 +78,12 @@ class CredentialsListView(generics.ListAPIView):
         return Credentials.objects.filter(client=client)
 
 # Projects views
+
+class CreateProjectView(generics.CreateAPIView):
+    queryset = Projects.objects.all()
+    serializer_class = ProjectsSerializer
+    permission_classes = [IsAuthenticated]
+
 class ProjectsListView(generics.ListCreateAPIView):
     queryset = Projects.objects.all()
     serializer_class = ProjectsSerializer
@@ -88,6 +104,11 @@ class ProjectsListView(generics.ListAPIView):
         return Projects.objects.filter(client=client)
 
 # Tasks views
+class CreateTaskView(generics.CreateAPIView):
+    queryset = Tasks.objects.all()
+    serializer_class = TasksSerializer
+    permission_classes = [IsAuthenticated]
+    
 class TasksListView(generics.ListCreateAPIView):
     queryset = Tasks.objects.all()
     serializer_class = TasksSerializer

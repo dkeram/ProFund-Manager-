@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Clients(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=90)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
     address = models.TextField()
     vat_number = models.CharField(max_length=9)
-    gemi_number = models.CharField(max_length=10)
+    gemi_number = models.CharField(max_length=11)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
