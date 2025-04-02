@@ -1,26 +1,26 @@
 import React, {useEffect, useState} from "react";
 import api from '../api';
-import { useNavigate } from "react-router-dom";
-import LoadingIndicator from "../components/LoadingIndicator";
+//import LoadingIndicator from "../components/LoadingIndicator";
 
 
 function Home(){
     const [clients, setClients] = useState([]);
     
     
-    useEffect(()=>{
+    useEffect(() => {
         getClients();
     },[]);
     
     const getClients = ()=>{
         api.get(`/api/list/clients/`)
             .then(res => {setClients(res.data); })
-            .catch((error)=>{alert(error)});
+            .catch((error) => {alert(error)});
     };
 
     return(
         <>
-            <table class="table table-hover">
+            <h1>Clients</h1>
+            <table className="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -37,17 +37,17 @@ function Home(){
                 </thead>
                 <tbody>
                     {clients.map((client)=>(
-                        <>
-                        <td>{client.id}</td>
-                        <td>{client.title}</td>
-                        <td>{client.name}</td>
-                        <td>{client.address}</td>
-                        <td>{client.vat_number}</td>
-                        <td>{client.gemi_number}</td>
-                        <td>{client.email}</td>
-                        <td>{client.phone}</td>
-                        <td>{client.created_at}</td>
-                        </>
+                        <tr key = {client.id}>
+                            <td>{client.id}</td>
+                            <td>{client.title}</td>
+                            <td>{client.name}</td>
+                            <td>{client.address}</td>
+                            <td>{client.vat_number}</td>
+                            <td>{client.gemi_number}</td>
+                            <td>{client.email}</td>
+                            <td>{client.phone}</td>
+                            <td>{client.created_at}</td>
+                        </tr>
                     ))}
                 </tbody>
             </table>
@@ -55,4 +55,4 @@ function Home(){
     )
 }
 
-export default Home;
+export default Home; 

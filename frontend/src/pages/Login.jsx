@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import api from '../api';
-import '../styles/Login.css';
 import { useNavigate } from 'react-router-dom';
 import {ACCESS_TOKEN, REFRESH_TOKEN} from '../constants';
 import LoadingIndicator from '../components/LoadingIndicator';
+import Logo from '../assets/Logo.png';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -28,24 +28,26 @@ function Login() {
     };
 
     return(
-        <main class="d-flex align-items-center py-4 bg-body-tertiary">
-        <form onSubmit={handleSubmit} class="form-signin w-100 m-auto">
-            <img class="mb-4" src="../assets/logo.svg" alt="" width="72" height="57"/>
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-        
-            <div class="form-floating">
-            <input type="username" class="form-control" id="floatingInput" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"/>
-            <label for="floatingInput">UserName</label>
-            </div>
-            <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"/>
-            <label for="floatingPassword">Password</label>
-            </div>
-            {loading && <LoadingIndicator />}
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-      </form>
+        <main className="d-flex vh-100 align-items-center justify-content-center bg-light">
+            <form onSubmit={handleSubmit} className="form-signin">
+                <div className="text-center">
+                <img src={Logo} alt="Logo" width="100" height="100"/>
+                </div>
+                <h1 className="text-center h1 mb-3 fw-normal">Please sign in</h1>
+            
+                <div className="form-floating">
+                <input type="username" className="form-control" id="floatingInput" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"/>
+                <label htmlFor="floatingInput">UserName</label>
+                </div>
+                <div className="form-floating">
+                <input type="password" className="form-control" id="floatingPassword" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"/>
+                <label htmlFor="floatingPassword">Password</label>
+                </div>
+                {loading && <LoadingIndicator />}
+                <button className="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+        </form>
       </main>
     );
 }
 
-export default Login
+export default Login;

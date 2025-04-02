@@ -18,7 +18,7 @@ class CreateUserView(generics.CreateAPIView):
 class CreateClientView(generics.CreateAPIView):
     queryset = Clients.objects.all()
     serializer_class = ClientsSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 class ClientsListView(generics.ListCreateAPIView):
     queryset = Clients.objects.all()
