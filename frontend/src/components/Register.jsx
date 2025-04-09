@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
-import LoadingIndicator from './LoadingIndicator';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 function Register(){
     const [username, setUsername] = useState('');
@@ -17,83 +17,88 @@ function Register(){
         setLoading(true);
 
         try{
-            const res = await api.post(`/api/user/register/`, {username, password, email, firstname, lastname});
+            await api.post(`/user/register/`, {username, password, email, firstname, lastname});
             navigate('/login');
         }catch(error){
             alert(error);
         }finally{
             setLoading(false);
         }
-    }
+    };
 
     return(
         <main className="d-flex vh-100 align-items-center justify-content-center bg-light">
-                <h2 className="text-center mb-3">Register</h2>
-                <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label className="form-label">First Name</label>
-                    <input
+            <form onSubmit={handleSubmit} className="form-signin w-100" style={{ maxWidth: 400 }}>
+                <h1 className="text-center mb-4">Register</h1>
+
+                <div className="form-floating">
+                <input
                     type="text"
-                    name="firstname"
+                    id="firstname"
                     className="form-control"
-                    placeholder="Enter your first name"
+                    placeholder="First Name"
                     value={firstname}
                     onChange={(e) => setFirstname(e.target.value)}
-                    />
+                />
+                <label htmlFor="firstname">First Name</label>
                 </div>
-                
-                <div className="mb-3">
-                <label className="form-label">Last Name</label>
-                    <input
+
+                <div className="form-floating">
+                <input
                     type="text"
-                    name="lastname"
+                    id="lastname"
                     className="form-control"
-                    placeholder="Enter your last name"
+                    placeholder="Last Name"
                     value={lastname}
                     onChange={(e) => setLastname(e.target.value)}
-                    />
+                />
+                <label htmlFor="lastname">Last Name</label>
                 </div>
 
-                <div className="mb-3">
-                    <label className="form-label">Email</label>
-                    <input
+                <div className="form-floating">
+                <input
                     type="email"
-                    name="email"
-                    placeholder="Enter your email"
+                    id="email"
+                    className="form-control"
+                    placeholder="Email"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    />
+                />
+                <label htmlFor="email">Email</label>
                 </div>
 
-                <div className="mb-3">
-                    <label className="form-label">User Name</label>
-                    <input
+                <div className="form-floating">
+                <input
                     type="text"
-                    name="usename"
+                    id="username"
                     className="form-control"
-                    placeholder="Enter your Username"
+                    placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    />
+                />
+                <label htmlFor="username">Username</label>
                 </div>
 
-                <div className="mb-3">
-                    <label className="form-label">Password</label>
-                    <input
+                <div className="form-floating">
+                <input
                     type="password"
-                    name="password"
-                    placeholder="Enter password"
+                    id="password"
+                    className="form-control"
+                    placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    />
+                />
+                <label htmlFor="password">Password</label>
                 </div>
 
+                <div className="text-center mb-3">
                 {loading && <LoadingIndicator />}
-                <button className="btn btn-primary w-100" type="submit">
-                    Register
-                </button>
-                </form>
-    </main>
-    )
+                </div>
+
+                <button className="btn btn-primary w-100 py-2" type="submit">Register</button>
+            </form>
+        </main>
+    );
 }
 
 export default Register;

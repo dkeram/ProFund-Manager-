@@ -36,17 +36,36 @@ function Login() {
                 <h1 className="text-center h1 mb-3 fw-normal">Please sign in</h1>
             
                 <div className="form-floating">
-                <input type="username" className="form-control" id="floatingInput" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"/>
+                <input 
+                    type="username" 
+                    className="form-control" 
+                    id="floatingInput" 
+                    value={username} 
+                    onChange={(e) => setUsername(e.target.value)} 
+                    placeholder="Username"
+                />
                 <label htmlFor="floatingInput">UserName</label>
                 </div>
+
                 <div className="form-floating">
-                <input type="password" className="form-control" id="floatingPassword" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"/>
+                <input 
+                    type="password" 
+                    className="form-control" 
+                    id="floatingPassword" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    placeholder="Password"
+                />
                 <label htmlFor="floatingPassword">Password</label>
                 </div>
+                
+                <div className="text-center mb-3">
                 {loading && <LoadingIndicator />}
+                </div>
+
                 <button className="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-        </form>
-      </main>
+            </form>
+        </main>
     );
 }
 

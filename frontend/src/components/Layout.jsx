@@ -13,7 +13,7 @@ function Layout() {
                         <hr/>
                         <ul className="nav nav-pills flex-column mb-auto">
                         <li className="nav-item">
-                            <a href="/home" className="nav-link active" aria-current="page">
+                            <a href="/" className="nav-link active" aria-current="page">
                             <svg className="bi pe-none me-2" width="16" height="16"></svg>
                             Home
                             </a>
@@ -54,6 +54,9 @@ function Layout() {
                 <div className="col">
                     <div className="row">
                         <h1>Header</h1>
+                        <a href="/new-client">
+                            <button class="btn btn-secondary rounded-pill px-3" type="button">New Client</button>
+                        </a>
                     </div>
                     <div className="row">
                         <Outlet />

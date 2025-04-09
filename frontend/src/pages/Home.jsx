@@ -12,7 +12,7 @@ function Home(){
     },[]);
     
     const getClients = ()=>{
-        api.get(`/api/list/clients/`)
+        api.get(`/api/clients/list/`)
             .then(res => {setClients(res.data); })
             .catch((error) => {alert(error)});
     };
