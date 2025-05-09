@@ -68,13 +68,13 @@ class CredentialsDeleteView(generics.DestroyAPIView):
     serializer_class = CredentialsSerializer
     permission_classes = [IsAuthenticated]
 
-class CredentialsListView(generics.ListAPIView):
+class CredentialsClientView(generics.ListAPIView):
     serializer_class = CredentialsSerializer
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
         client_id = self.kwargs['client_id']
-        client = Clients.get(pk=client_id)
+        client = Clients.objects.get(pk=client_id)
         return Credentials.objects.filter(client=client)
 
 # Projects views
@@ -100,7 +100,7 @@ class ProjectsListView(generics.ListAPIView):
     
     def get_queryset(self):
         client_id = self.kwargs['client_id']
-        client = Clients.get(pk=client_id)
+        client = Clients.objects.get(pk=client_id)
         return Projects.objects.filter(client=client)
 
 # Tasks views
@@ -125,7 +125,7 @@ class TasksListView(generics.ListAPIView):
     
     def get_queryset(self):
         client_id = self.kwargs['client_id']
-        client = Clients.get(pk=client_id)
+        client = Clients.objects.get(pk=client_id)
         return Tasks.objects.filter(client=client)
     
 class TasksListView(generics.ListAPIView):
@@ -134,7 +134,7 @@ class TasksListView(generics.ListAPIView):
     
     def get_queryset(self):
         project_id = self.kwargs['project_id']
-        project = Projects.get(pk=project_id)
+        project = Projects.objects.get(pk=project_id)
         return Tasks.objects.filter(project=project)
 
 class TasksListView(generics.ListAPIView):

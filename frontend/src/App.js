@@ -7,6 +7,9 @@ import ClientRegister from './pages/ClientRegister';
 import ProtectedRoute from './components/ProtectedRoute';
 import NotFound from './components/NotFound';
 import Layout from './components/Layout';
+import Credentials from './pages/Credentials';
+import AddCredentials from './pages/AddCredentials';
+import { ClientProvider } from './providers/ClientProvider';
 
 function Logout() {
   localStorage.clear();
@@ -16,16 +19,20 @@ function Logout() {
 function App() {
   return (
     <BrowserRouter>
+      <ClientProvider>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Layout />} >
-          <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/new-client" element={<ProtectedRoute><ClientRegister /></ProtectedRoute>} />
+          <Route path="/credentials/:client_id" element={<ProtectedRoute><Credentials /></ProtectedRoute>} />
+          <Route path="/credentials/new/" element={<ProtectedRoute><AddCredentials /></ProtectedRoute>} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+    </ClientProvider>
     </BrowserRouter>
   )
 }

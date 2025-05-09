@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def vat_proxy(request, vat_number):
-    external_url = f"https://publicity.businessportal.gr/api/autocomplete/{vat_number}"
+    external_url = f"https://opendata-api.businessportal.gr/api/opendata/v1/companies?afm={vat_number}-H'api_key:TyYDMbKjEdKR18krtDEUbet0DkoAo43f'"
     
     try:
         response = requests.get(external_url)

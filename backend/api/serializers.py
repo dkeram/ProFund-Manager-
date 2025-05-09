@@ -24,26 +24,16 @@ class ClientsSerializer(serializers.ModelSerializer):
 class CredentialsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Credentials
-        fields = '__all__'
-        extra_kwargs = {
-            'client': {'read_only': True}
-        }   
+        fields = '__all__'   
         
 class ProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projects
         fields = '__all__'
-        extra_kwargs = {
-            'client': {'read_only': True}
-        }
+
         
         
 class TasksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tasks
         fields = '__all__'
-        extra_kwargs = {
-            'project': {'read_only': True},
-            'client': {'read_only': True},
-            'user': {'read_only': True}
-        }

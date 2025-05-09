@@ -1,7 +1,23 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation, Link } from 'react-router-dom';
+import { useClient } from '../providers/ClientProvider';
 
 function Layout() {
+    const location = useLocation();
+    const { clientId } = useClient();
+    const currentPath = location.pathname;
+
+    const HeaderButtons = () => {
+        if (currentPath === "/") {
+            return (<a href="/new-client"> <button className="btn btn-secondary rounded-pill px-3" type="button">New Client</button> </a>);
+        }else if (currentPath.startsWith("/credentials")) {
+            return( <Link to="/credentials/new/" state={{client_id:clientId}}> <button className="btn btn-secondary rounded-pill px-3" type="button">Add Credentials</button> </Link> );
+        }else {
+            return (<div>Error</div>);
+        };
+    };
+
+
     return (
             <div className="row">
                 <div className="col-md-auto">
@@ -21,19 +37,19 @@ function Layout() {
                         <li>
                             <a href="*" className="nav-link text-white">
                             <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                            Tasks
+                            My Tasks
                             </a>
                         </li>
                         <li>
                             <a href="*" className="nav-link text-white">
                             <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                            Users
+                            Open Fund Projects
                             </a>
                         </li>
                         <li>
                             <a href="list/clients/" className="nav-link text-white">
                             <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                            Clients
+                            Completed Fund Projects
                             </a>
                         </li>
                         </ul>
@@ -53,10 +69,9 @@ function Layout() {
                 </div>
                 <div className="col">
                     <div className="row">
-                        <h1>Header</h1>
-                        <a href="/new-client">
-                            <button class="btn btn-secondary rounded-pill px-3" type="button">New Client</button>
-                        </a>
+                        <div className="col-md-12 d-flex justify-content-start mt-3 me-5">
+                            <HeaderButtons />
+                        </div>
                     </div>
                     <div className="row">
                         <Outlet />
