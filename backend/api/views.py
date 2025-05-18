@@ -26,9 +26,12 @@ class ClientsListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     
 class ClientDeleteView(generics.DestroyAPIView):
-    queryset = Clients.objects.all()
     serializer_class = ClientsSerializer
     permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        client_id = self.kwargs['pk']
+        return Clients.objects.filter(pk=client_id)
     
 class ClientAutoLogin(generics.ListAPIView):
     serializer_class = CredentialsSerializer

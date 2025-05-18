@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import api from '../api';
-//import LoadingIndicator from "../components/LoadingIndicator";
 
 
 function Home(){
@@ -49,7 +48,7 @@ function Home(){
                             <td>{client.created_at}</td>
                             <td>
                                 <button className="btn btn-secondary"  onClick={() => {window.location.href=`/credentials/${client.id}`}}><i className="bi bi-key"></i></button>
-                                <button className="btn btn-danger" onClick={() => {window.location.href=`/client/delete/${client.id}`}}><i className="bi bi-trash"></i></button>
+                                <button className="btn btn-danger" onClick={() => {api.delete(`api/client/delete/${client.id}`).then(()=> window.location.reload())}}><i className="bi bi-trash"></i></button>
                             </td>
                         </tr>
                     ))}
