@@ -1,11 +1,11 @@
 import {useState} from 'react';
-import api from '../api';
 import { useNavigate } from 'react-router-dom';
-import {ACCESS_TOKEN, REFRESH_TOKEN} from '../constants';
 import LoadingIndicator from '../components/LoadingIndicator';
 import Logo from '../assets/Logo.png';
+import { useUser } from '../providers/UserProvider';
 
 function Login() {
+    const { login } = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -16,9 +16,7 @@ function Login() {
         setLoading(true);
 
         try{
-            const res = await api.post(`/api/token/`, {username, password});
-            localStorage.setItem(ACCESS_TOKEN, res.data.access);
-            localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
+            await login(username, password);
             navigate('/');
         }catch(error){
             alert(error);

@@ -1,8 +1,9 @@
-import React from 'react'
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import { useClient } from '../providers/ClientProvider';
+import { useUser } from '../providers/UserProvider';
 
 function Layout() {
+    const {user, logout} = useUser();
     const location = useLocation();
     const { clientId } = useClient();
     const currentPath = location.pathname;
@@ -13,32 +14,25 @@ function Layout() {
         }else if (currentPath.startsWith("/credentials")) {
             return( <Link to="/credentials/new/" state={{client_id:clientId}}> <button className="btn btn-secondary rounded-pill px-3" type="button">Add Credentials</button> </Link> );
         }else {
-            return (<div>Error</div>);
+            return (<button className="btn btn-secondary"  onClick={() => {window.location.href=`/`}}><i class="bi bi-house"></i></button>);
         };
     };
-
 
     return (
             <div className="row">
                 <div className="col-md-auto">
-                    <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style={{width: "280px", height: "2160px"}}>
+                    <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style={{width: "280px", height: "100vh"}}>
                         <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <svg className="bi pe-none me-2" width="40" height="32"></svg>
                         <span className="fs-4">ProFund Manager+</span>
                         </a>
                         <hr/>
                         <ul className="nav nav-pills flex-column mb-auto">
-                        <li className="nav-item">
-                            <a href="/" className="nav-link active" aria-current="page">
-                            <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                            Home
-                            </a>
-                        </li>
                         <li>
-                            <a href="*" className="nav-link text-white">
+                            <Link to={`/my-tasks/${user.id}`} className="nav-link text-white">
                             <svg className="bi pe-none me-2" width="16" height="16"></svg>
                             My Tasks
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <a href="*" className="nav-link text-white">
@@ -79,6 +73,6 @@ function Layout() {
                 </div>
             </div>
     );
-}
+};
 
-export default Layout
+export default Layout;

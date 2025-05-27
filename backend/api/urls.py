@@ -3,6 +3,7 @@ from . import views
 from .autocomplete.autocomplete import vat_proxy
 
 urlpatterns = [
+    path('user/me/', views.UserMeView.as_view(), name='user_me'),
     path('client/new/', views.CreateClientView.as_view(), name='new-client'),
     path('client/vat/<str:vat_number>/', vat_proxy, name='vat_proxy'),
     path('clients/list/', views.ClientsListView.as_view(), name='clients'),
@@ -18,6 +19,7 @@ urlpatterns = [
     path('project/delete/<int:pk>/', views.ProjectsDeleteView.as_view(), name='projects_delete'),
     path('tasks/new/', views.CreateTaskView.as_view(), name='new-task'),
     path('tasks/list/', views.TasksListView.as_view(), name='tasks'),
+    path('tasks/user/<int:user_id>/', views.TasksUserView.as_view(), name='tasks_user'),
     path('tasks/client/<int:client_id>/', views.TasksListView.as_view(), name='tasks_client'),
     path('tasks/project/<int:project_id>/', views.TasksListView.as_view(), name='tasks_project'),
     path('tasks/client/project/<int:client_id>/<int:project_id>/', views.TasksListView.as_view(), name='tasks_client_project'),

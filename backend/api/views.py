@@ -14,6 +14,13 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
+class UserMeView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+    
+    def get_object(self):
+        return self.request.user
+
 # Clients views
 class CreateClientView(generics.CreateAPIView):
     queryset = Clients.objects.all()
@@ -116,7 +123,15 @@ class TasksListView(generics.ListCreateAPIView):
     queryset = Tasks.objects.all()
     serializer_class = TasksSerializer
     permission_classes = [IsAuthenticated]
+
+class TasksUserView(generics.ListAPIView):
+    serializer_class = TasksSerializer
+    permission_classes = [IsAuthenticated]
     
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        user = User.objects.get(pk=user_id)
+        return Tasks.objects.filter(user=user)
 class TasksDeleteView(generics.DestroyAPIView):
     queryset = Tasks.objects.all()
     serializer_class = TasksSerializer
