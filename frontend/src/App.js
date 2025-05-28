@@ -30,7 +30,7 @@ function App() {
           <Route path="/new-client" element={<ProtectedRoute><ClientRegister /></ProtectedRoute>} />
           <Route path="/credentials/:client_id" element={<ProtectedRoute><Credentials /></ProtectedRoute>} />
           <Route path="/credentials/new/" element={<ProtectedRoute><AddCredentials /></ProtectedRoute>} />
-          <Route path="/my-tasks/:user_id" element={<ProtectedRoute><MyTasks /></ProtectedRoute>} />
+          <Route path="/my-tasks/" element={<ProtectedRoute><MyTasks /></ProtectedRoute>} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />

@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
         localStorage.removeItem("access");
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [ access]);
 
   const login = async (username, password) => {
     const res = await api.post("/api/token/", { username, password });
@@ -38,16 +38,11 @@ export const UserProvider = ({ children }) => {
 
     const userRes = await api.get("/api/user/me/");
     setUser(userRes.data);
-  };
-
-  const logout = () => {
-    localStorage.removeItem("access");
-    delete api.defaults.headers.common["Authorization"];
-    setUser(null);
+    console.log(userRes.data);
   };
 
   return (
-    <UserContext.Provider value={{ user, loading, login, logout }}>
+    <UserContext.Provider value={{ user, loading, login }}>
       {children}
     </UserContext.Provider>
   );

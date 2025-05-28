@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import api from '../api';
 import { useParams } from 'react-router-dom';
-import {useClient} from '../providers/ClientProvider';
+import { useClient } from '../providers/ClientProvider';
 
 
 function Credentials(){

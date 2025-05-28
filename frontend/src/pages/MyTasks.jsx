@@ -1,19 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import api from '../api';
+import { useLocation } from 'react-router-dom';
 
 
-function MyTasks(user_id) {
+function MyTasks() {
+    const location = useLocation();
     const [myTasks, setMyTasks] = useState([]);
+    const { user_id } = location.state;
+
 
     useEffect(() => {
-    api.get(`/api/tasks/user/${user_id}`)
+    api.get(`/api/tasks/user/${user_id}/`)
         .then(res => {
             setMyTasks(res.data);
         })
         .catch((error) => {
             alert(error);
         });
-    },[]);
+    },[user_id]);
 
     return (
         <>
@@ -34,7 +38,16 @@ function MyTasks(user_id) {
             <tbody>
                 {myTasks.map((task) => (
                     <tr key={task.id}>
-                        <td>{task.id}</td>
+                        <td>{task.id}
+                            {" "}
+                            {task.status === "Completed" ? (
+                                <span className="badge bg-success">Completed</span>
+                            ): task.status === "In Progress" ? (
+                                <span className="badge bg-warning">In Progress</span>
+                             ) : (
+                                <span className="badge bg-secondary">Pending</span>
+                            )}
+                        </td>
                         <td>{task.task}</td>
                         <td>{task.description}</td>
                         <td>{task.client}</td>
@@ -42,6 +55,10 @@ function MyTasks(user_id) {
                         <td>{task.status}</td>
                         <td>{task.deadline}</td>
                         <td>{task.created_at}</td>
+                        <td>
+                            <button className="btn btn-success" onClick={() => {task.status="Completed"}}><i className="bi bi-check"></i></button>
+                            <button className="btn btn-danger" onClick={() => {api.delete(`api/task/delete/${task.id}`).then(() => window.location.reload())}}><i className="bi bi-trash"></i></button>
+                        </td>
                     </tr>
                 ))}
             </tbody>

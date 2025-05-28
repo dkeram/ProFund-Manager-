@@ -3,7 +3,8 @@ import { useClient } from '../providers/ClientProvider';
 import { useUser } from '../providers/UserProvider';
 
 function Layout() {
-    const {user, logout} = useUser();
+    const {user} = useUser();
+    const userId = user ? user.id : null;
     const location = useLocation();
     const { clientId } = useClient();
     const currentPath = location.pathname;
@@ -14,10 +15,9 @@ function Layout() {
         }else if (currentPath.startsWith("/credentials")) {
             return( <Link to="/credentials/new/" state={{client_id:clientId}}> <button className="btn btn-secondary rounded-pill px-3" type="button">Add Credentials</button> </Link> );
         }else {
-            return (<button className="btn btn-secondary"  onClick={() => {window.location.href=`/`}}><i class="bi bi-house"></i></button>);
+            return (<button className="btn btn-secondary"  onClick={() => {window.location.href=`/`}}><i className="bi bi-house"></i></button>);
         };
     };
-
     return (
             <div className="row">
                 <div className="col-md-auto">
@@ -29,21 +29,24 @@ function Layout() {
                         <hr/>
                         <ul className="nav nav-pills flex-column mb-auto">
                         <li>
-                            <Link to={`/my-tasks/${user.id}`} className="nav-link text-white">
+                            <Link to="/my-tasks/" state={{user_id:userId}} className="nav-link text-white">
                             <svg className="bi pe-none me-2" width="16" height="16"></svg>
+                            <i className="bi bi-list-task"> </i>
                             My Tasks
                             </Link>
                         </li>
                         <li>
                             <a href="*" className="nav-link text-white">
                             <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                            Open Fund Projects
+                            <i className="bi bi-wallet"> </i>
+                            Open Projects
                             </a>
                         </li>
                         <li>
-                            <a href="list/clients/" className="nav-link text-white">
+                            <a href="*" className="nav-link text-white">
                             <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                            Completed Fund Projects
+                            <i className="bi bi-wallet-fill"> </i>
+                            Completed Projects
                             </a>
                         </li>
                         </ul>
