@@ -57,7 +57,7 @@ function MyTasks() {
                         <td>{task.created_at}</td>
                         <td>
                             <button className="btn btn-success" onClick={() => {task.status="Completed"}}><i className="bi bi-check"></i></button>
-                            <button className="btn btn-danger" onClick={() => {api.delete(`api/task/delete/${task.id}`).then(() => window.location.reload())}}><i className="bi bi-trash"></i></button>
+                            <button className="btn btn-danger" onClick={() => {api.delete(`api/tasks/delete/${task.id}`).then(() => window.location.reload())}}><i className="bi bi-trash"></i></button>
                         </td>
                     </tr>
                 ))}
