@@ -21,6 +21,11 @@ class UserMeView(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user
 
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
 # Clients views
 class CreateClientView(generics.CreateAPIView):
     queryset = Clients.objects.all()

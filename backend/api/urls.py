@@ -4,6 +4,7 @@ from .autocomplete.autocomplete import vat_proxy
 
 urlpatterns = [
     path('user/me/', views.UserMeView.as_view(), name='user_me'),
+    path('user/list/', views.UserListView.as_view(), name='user_list'),
     path('client/new/', views.CreateClientView.as_view(), name='new-client'),
     path('client/vat/<str:vat_number>/', vat_proxy, name='vat_proxy'),
     path('clients/list/', views.ClientsListView.as_view(), name='clients'),
@@ -14,9 +15,9 @@ urlpatterns = [
     path('credentials/client/<int:client_id>/', views.CredentialsClientView.as_view(), name='credentials_client'),
     path('credentials/delete/<int:pk>/', views.CredentialsDeleteView.as_view(), name='credentials_delete'),
     path('project/new/', views.CreateProjectView.as_view(), name='new-project'),
-    path('project/list/', views.ProjectsListView.as_view(), name='projects'),
-    path('project/client/<int:client_id>/', views.ProjectsListView.as_view(), name='projects_client'),
-    path('project/delete/<int:pk>/', views.ProjectsDeleteView.as_view(), name='projects_delete'),
+    path('projects/list/', views.ProjectsListView.as_view(), name='projects'),
+    path('projects/client/<int:client_id>/', views.ProjectsListView.as_view(), name='projects_client'),
+    path('projects/delete/<int:pk>/', views.ProjectsDeleteView.as_view(), name='projects_delete'),
     path('tasks/new/', views.CreateTaskView.as_view(), name='new-task'),
     path('tasks/list/', views.TasksListView.as_view(), name='tasks'),
     path('tasks/user/<int:user_id>/', views.TasksUserView.as_view(), name='tasks_user'),

@@ -11,7 +11,14 @@ function Layout() {
 
     const HeaderButtons = () => {
         if (currentPath === "/") {
-            return (<a href="/new-client"> <button className="btn btn-secondary rounded-pill px-3" type="button">New Client</button> </a>);
+            return (<div className="d-flex justify-content-start">
+                        <div className="btn-group me-2">
+                            <a href="/new-client"> <button className="btn btn-secondary rounded-pill px-3" type="button">New Client</button> </a>
+                        </div>
+                        <div className="btn-group me-2">
+                            <a href="/new-task"> <button className="btn btn-secondary rounded-pill px-3" type="button">Assign a Task</button> </a>
+                        </div>
+                     </div>);
         }else if (currentPath.startsWith("/credentials")) {
             return( <Link to="/credentials/new/" state={{client_id:clientId}}> <button className="btn btn-secondary rounded-pill px-3" type="button">Add Credentials</button> </Link> );
         }else {

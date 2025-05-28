@@ -10,6 +10,7 @@ import Layout from './components/Layout';
 import Credentials from './pages/Credentials';
 import AddCredentials from './pages/AddCredentials';
 import MyTasks from './pages/MyTasks';
+import NewTask from './pages/NewTask';
 import { ClientProvider } from './providers/ClientProvider';
 import { UserProvider } from './providers/UserProvider';
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/credentials/:client_id" element={<ProtectedRoute><Credentials /></ProtectedRoute>} />
           <Route path="/credentials/new/" element={<ProtectedRoute><AddCredentials /></ProtectedRoute>} />
           <Route path="/my-tasks/" element={<ProtectedRoute><MyTasks /></ProtectedRoute>} />
+          <Route path="/new-task" element={<ProtectedRoute><NewTask /></ProtectedRoute>} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
