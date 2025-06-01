@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect} from 'react';
 import api from '../api';
 import { useParams } from 'react-router-dom';
 import { useClient } from '../providers/ClientProvider';
@@ -31,6 +31,7 @@ function Credentials(){
                     <th scope="col">Public Service</th>
                     <th scope="col">Username</th>
                     <th scope="col">Password</th>
+                    <th scope="col">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,6 +40,9 @@ function Credentials(){
                             <td>{credential.public_service}</td>
                             <td>{credential.username}</td>
                             <td>{credential.password}</td>
+                            <td>
+                                <button className="btn btn-danger" onClick={() => {api.delete(`api/credentials/delete/${credential.id}/`).then(()=> window.location.reload())}}><i className="bi bi-trash"></i></button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

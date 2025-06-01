@@ -1,6 +1,7 @@
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import { useClient } from '../providers/ClientProvider';
 import { useUser } from '../providers/UserProvider';
+import { useNavigate } from 'react-router-dom';
 
 function Layout() {
     const {user} = useUser();
@@ -8,6 +9,7 @@ function Layout() {
     const location = useLocation();
     const { clientId } = useClient();
     const currentPath = location.pathname;
+    const navigate = useNavigate();
 
     const HeaderButtons = () => {
         if (currentPath === "/") {
@@ -20,9 +22,34 @@ function Layout() {
                         </div>
                      </div>);
         }else if (currentPath.startsWith("/credentials")) {
-            return( <Link to="/credentials/new/" state={{client_id:clientId}}> <button className="btn btn-secondary rounded-pill px-3" type="button">Add Credentials</button> </Link> );
+            return(<div className="d-flex justify-content-start">
+                        <div className="btn-group me-2">
+                            <button className="btn btn-secondary rounded-pill px-3" type="button" onClick={()=> navigate(-1)}><i className="bi bi-caret-left-fill"></i></button>
+                        </div>
+                        <div className="btn-group me-2"></div>
+                            <Link to="/credentials/new/" state={{client_id:clientId}}> <button className="btn btn-secondary rounded-pill px-3" type="button">Add Credentials</button> </Link> );
+                        </div>
+            );
+        }else if (currentPath.startsWith("/projects")) {
+            return (<div className="d-flex justify-content-start">
+                        <div className="btn-group me-2">
+                            <button className="btn btn-secondary rounded-pill px-3" type="button" onClick={()=> navigate(-1)}><i className="bi bi-caret-left-fill"></i></button>
+                        </div>
+                        <div className="btn-group me-2"></div>
+                            <Link to="/project/new/" state={{client_id:clientId}} > <button className="btn btn-secondary rounded-pill px-3" type="button">New Project</button> </Link>
+                        </div>
+            );
         }else {
-            return (<button className="btn btn-secondary"  onClick={() => {window.location.href=`/`}}><i className="bi bi-house"></i></button>);
+            return (
+                    <div className="d-flex justify-content-start">
+                        <div className="btn-group me-2">
+                            <button className="btn btn-secondary rounded-pill px-3" type="button" onClick={()=> navigate(-1)}><i className="bi bi-caret-left-fill"></i></button>
+                        </div>
+                        <div className="btn-group me-2">
+                            <button className="btn btn-secondary"  onClick={() => {window.location.href=`/`}}><i className="bi bi-house"></i></button>
+                        </div>
+                    </div>
+            );
         };
     };
     return (

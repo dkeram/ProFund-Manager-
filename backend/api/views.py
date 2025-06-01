@@ -79,9 +79,12 @@ class CredentialsListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     
 class CredentialsDeleteView(generics.DestroyAPIView):
-    queryset = Credentials.objects.all()
     serializer_class = CredentialsSerializer
     permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        credentials_id = self.kwargs['pk']
+        return Credentials.objects.filter(pk=credentials_id)
 
 class CredentialsClientView(generics.ListAPIView):
     serializer_class = CredentialsSerializer
@@ -105,9 +108,13 @@ class ProjectsListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
 class ProjectsDeleteView(generics.DestroyAPIView):
-    queryset = Projects.objects.all()
     serializer_class = ProjectsSerializer
     permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        project_id = self.kwargs['pk']
+        return Projects.objects.filter(pk=project_id)
+
 
 class ProjectsListView(generics.ListAPIView):
     serializer_class = ProjectsSerializer
