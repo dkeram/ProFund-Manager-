@@ -27,7 +27,7 @@ function Layout() {
                             <button className="btn btn-secondary rounded-pill px-3" type="button" onClick={()=> navigate(-1)}><i className="bi bi-caret-left-fill"></i></button>
                         </div>
                         <div className="btn-group me-2"></div>
-                            <Link to="/credentials/new/" state={{client_id:clientId}}> <button className="btn btn-secondary rounded-pill px-3" type="button">Add Credentials</button> </Link> );
+                            <Link to="/credentials/new/" state={{client_id:clientId}}> <button className="btn btn-secondary rounded-pill px-3" type="button">Add Credentials</button> </Link> 
                         </div>
             );
         }else if (currentPath.startsWith("/projects")) {

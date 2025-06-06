@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
-import { useClient } from '../providers/ClientProvider';
 import LoadingIndicator from '../components/LoadingIndicator';
 import { useLocation } from 'react-router-dom';
 
