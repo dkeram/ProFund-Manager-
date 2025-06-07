@@ -38,7 +38,6 @@ export const UserProvider = ({ children }) => {
 
     const userRes = await api.get("/api/user/me/");
     setUser(userRes.data);
-    console.log(userRes.data);
   };
 
   return (

@@ -2,6 +2,7 @@ import { Outlet, useLocation, Link } from 'react-router-dom';
 import { useClient } from '../providers/ClientProvider';
 import { useUser } from '../providers/UserProvider';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../assets/Logo.png';
 
 function Layout() {
     const {user} = useUser();
@@ -58,6 +59,9 @@ function Layout() {
                     <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style={{width: "280px", height: "100vh"}}>
                         <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <svg className="bi pe-none me-2" width="40" height="32"></svg>
+                        <div className="text-center" style={{marginRight: "10px"}}>
+                            <img src={Logo} alt="Logo" width="60" height="60"/>
+                        </div>
                         <span className="fs-4">ProFund Manager+</span>
                         </a>
                         <hr/>

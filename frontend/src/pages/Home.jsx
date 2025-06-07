@@ -1,19 +1,42 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import api from '../api';
 
 
 function Home(){
     const [clients, setClients] = useState([]);
+    const [credentials, setCredentials] = useState([]);
+    const [clientId, setClientId] = useState(null);
+    const modalRef = useRef(null);
+    const modalInstance = useRef(null);
     
     
     useEffect(() => {
         getClients();
+        if (modalRef.current) {
+            modalInstance.current = new window.bootstrap.Modal(modalRef.current);
+        }
     },[]);
     
     const getClients = ()=>{
         api.get(`/api/clients/list/`)
             .then(res => {setClients(res.data); })
             .catch((error) => {alert(error)});
+    };
+
+    const openModal = (clientId) => {
+        setClientId(clientId);
+        api.get(`/api/credentials/client/${clientId}/`)
+            .then(res => {setCredentials(res.data); })
+            .catch((error) => {alert("This client has no credentials yet.")}
+        );
+        modalInstance.current.show();
+    };
+
+    const autoLogin = (clientId,publicService) => {
+        api.post(`/api/credentials/connect/${clientId}/${publicService}/`)
+        .catch((error) => {
+            alert(error);
+        });
     };
 
     return(
@@ -49,6 +72,9 @@ function Home(){
                             <td>
                                 <div className="d-flex justify-content-start">
                                     <div className="btn-group me-2">
+                                        <button className="btn btn-secondary"  onClick={() => openModal(client.id)}><i className="bi bi-globe-asia-australia"></i></button>
+                                    </div>
+                                    <div className="btn-group me-2">
                                         <button className="btn btn-secondary"  onClick={() => {window.location.href=`/projects/clients/${client.id}`}}><i className="bi bi-wallet-fill"></i></button>
                                     </div>
                                     <div className="btn-group me-2">
@@ -66,6 +92,34 @@ function Home(){
                     ))}
                 </tbody>
             </table>
+            
+                <div className="modal fade" id="autoLoginSelect" tabIndex="-1" ref={modalRef} aria-labelledby="userModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="autoLoginSelect">Choose Where You Want to Login</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                                    <div className="d-flex justify-content-center">
+                                        <h2>Public Service</h2>
+                                    </div>
+                                    <div className="d-flex justify-content-center">
+                                        <ul className="list-group">
+                                            {credentials.map((credential)=>(
+                                                <li className="list-group-item"  key = {credential.id}>
+                                                        <button className="btn btn-info" onClick={() => {autoLogin(clientId, credential.public_service)}} >{credential.public_service}</button>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
         </>
     )
 }

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .autologin.autologin import AutoLogin_DYPA_AADE, AutoLogin_EFKA, AutoLogin_MY_AADE, AutoLogin_PSKE
 from .serializers import UserSerializer, ClientsSerializer, CredentialsSerializer, ProjectsSerializer, TasksSerializer
@@ -45,17 +46,16 @@ class ClientDeleteView(generics.DestroyAPIView):
         client_id = self.kwargs['pk']
         return Clients.objects.filter(pk=client_id)
     
-class ClientAutoLogin(generics.ListAPIView):
-    serializer_class = CredentialsSerializer
-    permission_classes = [IsAuthenticated]
+class ClientAutoLogin(APIView):
+    permission_classes = [AllowAny]
     
-    def get_queryset(self):
+    def post(self, request, client_id, public_service):
         client_id = self.kwargs['client_id']
-        client = Clients.get(pk=client_id)
-        credentials = Credentials.objects.filter(client=client)
-        username = credentials[0].username
-        password = credentials[0].password
-        public_service = credentials[0].public_service
+        public_service = self.kwargs['public_service']
+        credentials = Credentials.objects.filter(client=client_id)
+        credentials = credentials.filter(public_service=public_service).first()
+        username = credentials.username
+        password = credentials.password
         if public_service == 'PSKE':
             AutoLogin_PSKE(username, password).login()
         elif public_service == 'EFKA':
@@ -64,7 +64,6 @@ class ClientAutoLogin(generics.ListAPIView):
             AutoLogin_DYPA_AADE(username, password).login()
         else:
             AutoLogin_MY_AADE(username, password).login()
-        return credentials
 
 
 # Credentials views
