@@ -95,7 +95,7 @@ function Layout() {
                                 <strong>User</strong>
                             </a>
                             <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
-                                <li><a className="dropdown-item" href="*">Profile</a></li>
+                                <li><a className="dropdown-item" href="/user/profile">Profile</a></li>
                                 <li><hr className="dropdown-divider"/></li>
                                 <li><a className="dropdown-item" href="/logout">Sign out</a></li>
                             </ul>

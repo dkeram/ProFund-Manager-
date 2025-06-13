@@ -81,7 +81,7 @@ function Home(){
                                         <button className="btn btn-secondary"  onClick={() => {window.location.href=`/credentials/${client.id}`}}><i className="bi bi-key-fill"></i></button>
                                     </div>
                                     <div className="btn-group me-2">
-                                            <button className="btn btn-secondary"  onClick={() => {api.put(`api/clients/list/${client.id}/`)}}><i className="bi bi-pencil-fill"></i></button>
+                                            <button className="btn btn-secondary"  onClick={() => {window.location.href=`/edit-client/${client.id}/`}}><i className="bi bi-pencil-fill"></i></button>
                                     </div>
                                     <div className="btn-group me-2">
                                         <button className="btn btn-danger" onClick={() => {api.delete(`api/client/delete/${client.id}`).then(()=> window.location.reload())}}><i className="bi bi-trash"></i></button>

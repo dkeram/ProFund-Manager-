@@ -5,9 +5,12 @@ from .autocomplete.autocomplete import vat_proxy
 urlpatterns = [
     path('user/me/', views.UserMeView.as_view(), name='user_me'),
     path('user/list/', views.UserListView.as_view(), name='user_list'),
+    path('user/edit/<int:pk>/', views.UserEditView.as_view(), name='edit_user'),
     path('client/new/', views.CreateClientView.as_view(), name='new-client'),
-    path('client/vat/<str:vat_number>/', vat_proxy, name='vat_proxy'),
+    path('client/vat/<int:vat_number>/', vat_proxy, name='vat_proxy'),
     path('clients/list/', views.ClientsListView.as_view(), name='clients'),
+    path('client/<int:pk>/', views.ClientListView.as_view(), name='client'),
+    path('client/edit/<int:pk>/', views.ClientsEditView.as_view(), name='client_edit'),
     path('client/delete/<int:pk>/', views.ClientDeleteView.as_view(), name='client_delete'),
     path('credentials/new/', views.CreateCredentialsView.as_view(), name='new-credentials'),
     path('credentials/list/', views.CredentialsListView.as_view(), name='credentials'),

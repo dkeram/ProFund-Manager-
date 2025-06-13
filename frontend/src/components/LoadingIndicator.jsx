@@ -2,7 +2,7 @@ import "../styles/LoadingIndicator.css";
 
 const LoadingIndicator = () => {
   return (
-    <div className="loading-container">
+    <div className="col-12 text-center">
       <div className="loader"></div>
     </div>
   );

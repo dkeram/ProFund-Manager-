@@ -26,6 +26,14 @@ class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
+    
+class UserEditView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+    
+    def get_queryset(self):
+        user_id = self.kwargs['pk']
+        return User.objects.filter(pk=user_id)
 
 # Clients views
 class CreateClientView(generics.CreateAPIView):
@@ -37,6 +45,23 @@ class ClientsListView(generics.ListCreateAPIView):
     queryset = Clients.objects.all()
     serializer_class = ClientsSerializer
     permission_classes = [IsAuthenticated]
+
+
+class ClientListView(generics.RetrieveUpdateAPIView):
+    serializer_class = ClientsSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        client_id = self.kwargs['pk']
+        return Clients.objects.filter(pk=client_id)
+
+class ClientsEditView(generics.RetrieveUpdateAPIView):
+    serializer_class = ClientsSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        client_id = self.kwargs['pk']
+        return Clients.objects.filter(pk=client_id)
     
 class ClientDeleteView(generics.DestroyAPIView):
     serializer_class = ClientsSerializer
